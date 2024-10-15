@@ -1,0 +1,47 @@
+---
+title: "Evictions in San Francisco"
+subtitle: "(Just a targets demo)"
+author: "Data and Performance Team (OEWD)"
+date: "`r Sys.Date()`"
+embed-resources: true
+format:
+  oewd-report-html: default
+output-file: "Evictions Report"
+execute: 
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+library(targets)
+library(gtsummary)
+library(mapview)
+library(equatiomatic)
+library(tidyverse)
+
+tar_load(evictions_change)
+tar_load(model_data)
+tar_load(model)
+```
+
+# Overview
+
+This analysis comes from ["Eviction Notices" on DataSF.](https://data.sfgov.org/Housing-and-Buildings/Eviction-Notices/5cei-gny5/about_data) It was last exported at `r evictions_change`.
+
+# Analysis
+
+We built the following model:
+
+`r extract_eq(model$model)`
+
+```{r}
+tbl_regression(model$model, intercept = TRUE)
+```
+
+
+# About this Report
+
+This HTML report was created with [Quarto.](https://quarto.org/) The data within is self-contained and cannot be updated automatically. If you bookmark the report within your browser, be aware that the bookmark URL references a file path on your computer; moving the document to a different location will break the bookmark.
+
+![](_extensions/SFOEWD/oewd-report/assets/OEWD%20Circle%20Logo.png){fig-align="center" width="225"}
