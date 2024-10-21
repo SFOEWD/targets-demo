@@ -1,7 +1,6 @@
 library(targets)
 library(tarchetypes)
 
-# Set target options:
 tar_option_set(
   packages = c(
     "tidycensus",
@@ -11,11 +10,10 @@ tar_option_set(
     "broom",
     "biscale",
     "cowplot",
-    "equatiomatic",
     "gtsummary",
     "tidyverse"
     ),
-  format = "rds"
+  format = "qs"
 )
 
 tar_source()
@@ -34,6 +32,6 @@ tar_plan(
   model_data = merge_data(evictions, census_data),
   model = fit_model(model_data),
   map = make_bivariate_map(model_data),
-  plot = plot_model(model_data),
+  plot = plot_data(model_data),
   tar_quarto(report, path = "evictions.qmd")
 )

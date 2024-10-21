@@ -6,7 +6,7 @@ date: "`r Sys.Date()`"
 embed-resources: true
 format:
   oewd-report-html: default
-output-file: "Evictions Report"
+output-file: "Evictions Report.html"
 execute: 
   echo: false
   warning: false
@@ -16,27 +16,41 @@ execute:
 ```{r}
 library(targets)
 library(gtsummary)
-library(mapview)
-library(equatiomatic)
 library(tidyverse)
 
 tar_load(evictions_change)
-tar_load(model_data)
 tar_load(model)
+tar_load(plot)
+tar_load(map)
 ```
 
 # Overview
 
-This analysis comes from ["Eviction Notices" on DataSF.](https://data.sfgov.org/Housing-and-Buildings/Eviction-Notices/5cei-gny5/about_data) It was last exported at `r evictions_change`.
+This analysis comes from ["Eviction Notices" on DataSF.](https://data.sfgov.org/Housing-and-Buildings/Eviction-Notices/5cei-gny5/about_data) The data was last updated at `r evictions_change`.
 
 # Analysis
 
-We built the following model:
+We fit the following model:
 
-`r extract_eq(model$model)`
+```{r}
+model$model$call
+```
+
 
 ```{r}
 tbl_regression(model$model, intercept = TRUE)
+```
+
+We made the following plot:
+
+```{r}
+plot
+```
+
+We made the following map:
+
+```{r fig.width=8, fig.height=8}
+map
 ```
 
 
